@@ -1,0 +1,105 @@
+body {
+    background-image: url(/imgs/background.jpg);
+    color: white;
+}
+
+main {
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 230px;
+}
+
+.counter {
+    text-align: center;
+    font-size: 30px;
+}
+
+img {
+    width: 150px;
+}
+
+#cards-deck {
+    position: relative;
+    right: 100px;
+    border-radius: 8px;
+    margin-left: 150px;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    width: 640px;
+}
+
+#player-deck {
+    flex-wrap: nowrap;
+}
+
+li {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0px 0px 10px;
+    list-style: none;
+}
+
+#dealer-side {
+    display: flex;
+    align-items: center;
+    gap: 300px;
+}
+
+#player-side {
+    display: flex;
+    align-items: center;
+    gap: 300px;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 250px;
+}
+
+button {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 10px 30px;
+    width: 200px;
+    background-color: rgb(172, 77, 77);
+    transition: .2s ease-in-out;
+}
+
+button:hover {
+    background-color: rgb(121, 53, 53);
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.9);
+}
+
+#hit {
+    
+}
+
+#stand {
+    background-color: rgb(176, 176, 176);
+}
+
+#stand:hover {
+    background-color: rgb(94, 94, 94);
+}
+
+dialog {
+    text-align: center;
+}
