@@ -50,8 +50,6 @@ export const cardsArray = {
   "ace_of_spades": 1,
   "ace_of_spades2": 1,
 
-  "black_joker": 0,
-
   "jack_of_clubs": 11,
   "jack_of_clubs2": 11,
   "jack_of_diamonds": 11,

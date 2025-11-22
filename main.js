@@ -1,6 +1,6 @@
 import { cardsArray } from "/js/cardsObject.js";
 
-const cardsDict = Object.entries(cardsArray);
+let cardsDict = Object.entries(cardsArray);
 
 function getRandomCard() {
     const randomCardIndex = Math.floor(Math.random() * cardsDict.length);
@@ -30,13 +30,15 @@ let againButton = document.getElementById("again");
 
 ////////VARIABLES////////
 
-let cardId = 1;
+let cardDealerId = 1;
+let cardPlayerId = 1;
 
 
 ////////EVENTS////////
 
 hit.addEventListener("mouseup", hitCard);
 stand.addEventListener("mouseup", standCard);
+againButton.addEventListener("mouseup", restartRound);
 
 ////////EVENTS////////
 
@@ -57,10 +59,19 @@ function dealerStartRound() {
     const [cardName, cardValue] = getRandomCard();
     
     //Creo un nuevo <li> con la <img> justo despues del ultimo hijo del <ul>
-    dealerDeck.insertAdjacentHTML("beforeend", `<li id='dealer-card-${cardId}'><img src='/imgs/cards/${cardName}.png' alt=''></li>`);
+    dealerDeck.insertAdjacentHTML("beforeend", `<li id='dealer-card-${cardDealerId}'><img src='/imgs/cards/${cardName}.png' alt=''></li>`);
+
+    let newDealerCard = document.getElementById(`dealer-card-${cardDealerId}`); //Es la nueva carta que he creado y añadido para el dealer a la lista.
+
+    newDealerCard.getBoundingClientRect(); //Esto fuerza a que el css aplique el translateY(0px) que le agregamos al elemento
+
+    newDealerCard.style.transform = "translateY(0px)";
+
     let currentDealerPoints = parseInt(dealerPoints.innerHTML); //Puntos actuales del dealer
     let sumDealerPoints = currentDealerPoints + cardValue; //Los puntos sumados de los actuales del dealer + el valor de la carta que ha sacado
     dealerPoints.innerHTML = sumDealerPoints; //Mostrarlo en pantalla
+
+    cardDealerId++;
 }
 
 
@@ -70,10 +81,26 @@ function hitCard() {
     const [cardName, cardValue] = getRandomCard();
 
     //Creo un nuevo <li> con la <img> justo despues del ultimo hijo del <ul>
-    playerDeck.insertAdjacentHTML("beforeend", `<li id='player-card-${cardId}'><img src='/imgs/cards/${cardName}.png' alt=''></li>`);
+    playerDeck.insertAdjacentHTML("beforeend", `<li id='player-card-${cardPlayerId}'><img src='/imgs/cards/${cardName}.png' alt=''></li>`);
+
+    let newPlayerCard = document.getElementById(`player-card-${cardPlayerId}`); //Es la nueva carta que he creado y añadido para el jugador a la lista.
+
+    newPlayerCard.getBoundingClientRect(); //Esto fuerza a que el css aplique el translateY(0px) que le agregamos al elemento
+
+    newPlayerCard.style.transform = "translateY(0px)";
+
     let currentPlayerPoints = parseInt(playerPoints.innerHTML); //Mis puntos actuales
     let sumPlayerPoints = currentPlayerPoints + cardValue; //Los puntos sumados de mis actuales + el valor de la carta que he sacado
+
+    if (sumPlayerPoints >= 21) {
+        hit.style.pointerEvents = "none"; //Para que si tengo 21 o si me he pasado, que no se puedan spamear las cartas
+        stand.style.pointerEvents = "none";
+        dealerPlays(); //Si me paso, automaticamente hace que el dealer juegue, para ver si gana el o estais empate
+    }
+
     playerPoints.innerHTML = sumPlayerPoints; //Mostrarlo en pantalla
+
+    cardPlayerId++;
 }
 
 function standCard() {
@@ -147,6 +174,33 @@ function winLoseScreen(winner) {
     }
 
     winLoseDialog.showModal();
+}
+
+function restartRound() {
+
+    cardsDict = Object.entries(cardsArray);
+
+    winLoseDialog.requestClose();
+
+    let dealerEraseDeck = document.querySelectorAll("#dealer-deck li");
+    let playerEraseDeck = document.querySelectorAll("#player-deck li");
+
+    for (let i = 0; i < dealerEraseDeck.length; i++) {
+        console.log(dealerEraseDeck[i]);
+        dealerEraseDeck[i].remove()
+    }
+
+    for (let i = 0; i < playerEraseDeck.length; i++) {
+        console.log(playerEraseDeck[i]);
+        playerEraseDeck[i].remove()
+    }
+
+    //Atualizamos los puntos a zero
+    dealerPoints.innerHTML = 0;
+    playerPoints.innerHTML = 0;
+
+    //Llamamos a la funcion para que el dealer vuelva a empezar la ronda
+    dealerStartRound();
 }
 
 "win-lose-dialog"
