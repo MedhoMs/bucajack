@@ -25,20 +25,53 @@ let dealerPoints = document.getElementById("dealer-points");
 let winLoseDialog = document.getElementById("win-lose-dialog");
 let dialogHeader = document.getElementById("dialog-header");
 let winLoseText = document.getElementById("win-lose-text");
-let moneyEarned = document.getElementById("money-earned");
 let againButton = document.getElementById("again");
+let moneyRound = document.getElementById("money-round");
+let moneySlider = document.getElementById("money-slider");
+let betAmount = document.getElementById("bet-amount");
+let currentMoney = document.getElementById("current-money");
 
 ////////VARIABLES////////
 
-let cardDealerId = 1;
-let cardPlayerId = 1;
+
+
+////////GLOBAL VARIABLES////////
+
+let cardDealerId = 1; //Id que incrementara a medida que el dealer saque una carta
+let cardPlayerId = 1; //Id que incrementara a medida que el jugador saque una carta
+let moneyEarned = 1000;
+currentMoney.innerHTML = `Wallet: ${moneyEarned}€`; //El dinero que tengo
+moneySlider.max = moneyEarned;
+
+////////GLOBAL VARIABLES////////
+
 
 
 ////////EVENTS////////
 
 hit.addEventListener("mouseup", hitCard);
 stand.addEventListener("mouseup", standCard);
-againButton.addEventListener("mouseup", restartRound);
+//El atributo "click" me permite usar tanto el click del raton como el ENTER para disparar el evento
+againButton.addEventListener("click", restartRound);
+
+let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo pulsado, y poder usar el listener de "mousemove"
+
+moneySlider.addEventListener('mousedown', function() {
+    isDragging = true;
+});
+
+//Si "isDragging" es true, se activa lo que diga el listener que lo deberia de ser porque lo es cuando mantengo el click por el anterior listener
+moneySlider.addEventListener('mousemove', function() {
+    if (isDragging) {
+        betAmount.innerHTML = `${moneySlider.value}€`;
+    }
+});
+
+moneySlider.addEventListener('mouseup', function() {
+    if (isDragging) {
+        isDragging = false;
+    }
+});
 
 ////////EVENTS////////
 
@@ -100,6 +133,15 @@ function hitCard() {
 
     playerPoints.innerHTML = sumPlayerPoints; //Mostrarlo en pantalla
 
+    playerPoints.classList.add("get-points-animation");
+
+    setTimeout(() => {
+        playerPoints.classList.remove("get-points-animation");
+    }, 300);
+
+    //Cuando tire una carta, le quito el pointerEvents para que no se pueda cambiar la apuesta una vez hayas tirado
+    moneySlider.style.pointerEvents = "none";
+
     cardPlayerId++;
 }
 
@@ -137,6 +179,11 @@ function decidesWinner() {
         winLoseScreen(winner);
         return;
     }
+    if (playerFinalPoints === dealerFinalPoints) {
+        winner = 2;
+        winLoseScreen(winner);
+        return;
+    }
     if (playerFinalPoints > 21) {
         winner = 0;
         winLoseScreen(winner);
@@ -161,17 +208,44 @@ function decidesWinner() {
 }
 
 function winLoseScreen(winner) {
+    let calcMoney; //Variable para calcular el dinero
+    let moneyEarnedFromBet = betAmount.innerHTML; //El dinero que gané/perdí por la apuesta
+    moneyEarnedFromBet = parseInt(moneyEarnedFromBet); //Lo convierto a int para las operaciones
 
     if (winner === 0) {
+        calcMoney = moneyEarned - moneyEarnedFromBet;  
+
+        currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia restado por lo que aposté
+        moneyEarned = calcMoney; //Actualizo mi dinero maximo
+        moneySlider.max = moneyEarned; //Actualizo el max del slider
+        
         winLoseText.innerHTML = `Has perdido bobolón <br> El dealer te la ha jugado (Esto esta amañado)`;
-        moneyEarned.innerHTML = `Pierdes: ${"-moneyEarned"}`;
+        moneyRound.innerHTML = `Pierdes: -${moneyEarnedFromBet}`;
+
     } else if (winner === 1) {
+        calcMoney = moneyEarned + (moneyEarnedFromBet * 2);
+
+        currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia duplicado por haber ganado
+        moneyEarned = calcMoney; //Actualizo mi dinero maximo
+        moneySlider.max = moneyEarned; //Actualizo el max del slider
+
         winLoseText.innerHTML = `¡Has ganado cabronazo <br> El dealer está llorando en una esquina!`;
-        moneyEarned.innerHTML = `Ganas: ${"moneyEarned"}`;
+
+        //Debo de hacer otra operacion, ya que el dinero ganado es el dinero apostado * 2 pero sin mi dinero actual
+        calcMoney = moneyEarnedFromBet * 2;
+
+        moneyRound.innerHTML = `Ganas: ${calcMoney}`;
+
     } else if (winner === 2) {
         winLoseText.innerHTML = `Que quieres que te diga <br> Al menos no has perdido ninguna pesata...`;
         winLoseText.innerHTML = "Empate";
     }
+
+    /////MONEY LOOSE LOGIC/////
+
+
+
+    /////MONEY LOOSE LOGIC/////
 
     winLoseDialog.showModal();
 }
@@ -186,12 +260,10 @@ function restartRound() {
     let playerEraseDeck = document.querySelectorAll("#player-deck li");
 
     for (let i = 0; i < dealerEraseDeck.length; i++) {
-        console.log(dealerEraseDeck[i]);
         dealerEraseDeck[i].remove()
     }
 
     for (let i = 0; i < playerEraseDeck.length; i++) {
-        console.log(playerEraseDeck[i]);
         playerEraseDeck[i].remove()
     }
 
@@ -199,15 +271,13 @@ function restartRound() {
     dealerPoints.innerHTML = 0;
     playerPoints.innerHTML = 0;
 
+    //Rehabilito los eventos
+    hit.style.pointerEvents = "all";
+    stand.style.pointerEvents = "all";
+    moneySlider.style.pointerEvents = "all";
+
     //Llamamos a la funcion para que el dealer vuelva a empezar la ronda
     dealerStartRound();
 }
-
-"win-lose-dialog"
-"dialog-header"
-"dialog-body"
-"win-lose-text"
-"money-earned"
-"again"
 
 ////////FUNCTIONS////////

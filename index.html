@@ -38,12 +38,20 @@
             </div>
         </main>
 
+        <div id="bet-money">
+            <p id="current-money"></p>
+            <div class="bet-value">
+                <p id="bet-amount">50€</p>
+                <input type="range" min="1" value="50" class="slider" id="money-slider">
+            </div>
+        </div>
+
         <dialog id="win-lose-dialog" >
             <div id="dialog-header"></div>
             <div id="dialog-body">
                 <p id="win-lose-text"></p>
-                <p id="money-earned"></p>
-                <button id="again">¡APOSTAR!</button>
+                <p id="money-round"></p>
+                <button id="again" autofocus>¡APOSTAR!</button>
             </div>
         </dialog>
 

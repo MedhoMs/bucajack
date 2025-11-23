@@ -8,12 +8,12 @@ body::-webkit-scrollbar {
 }
 
 main {
-    min-height: 95vh;
+    min-height: 79vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 230px;
+    gap: 130px;
 }
 
 .counter {
@@ -29,13 +29,13 @@ img {
     position: relative;
     right: 100px;
     border-radius: 8px;
-    margin-left: 150px;
+    margin-left: 140px;
 }
 
 #dealer-side {
     display: flex;
     align-items: center;
-    gap: 300px;
+    gap: 290px;
 }
 
 #player-side {
@@ -49,6 +49,7 @@ ul {
     justify-content: center;
     padding: 0;
     width: 640px;
+    margin-left: 100px;
 }
 
 li {
@@ -66,8 +67,8 @@ li {
     transform: translateY(400px);
 }
 
-.card-visible {
-    transform: translateY(0px);
+.counter {
+    margin-left: 80px;
 }
 
 #buttons {
@@ -114,3 +115,133 @@ button:active {
 dialog {
     text-align: center;
 }
+
+#bet-money {
+    position: relative;
+    bottom: 50px;
+    left: 90px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+#current-money {
+    font-size: 30px;
+    margin: 0px;
+    padding-top: 100px;
+}
+
+#bet-money input {
+    width: 400px;
+    margin-right: 20px;
+}
+
+.bet-value {
+    display: flex;
+    flex-direction: column;
+}
+
+#bet-amount {
+    color: #4ade80;
+    font-size: 42px;
+}
+
+
+/*/////////FUMADA DE CLAUDE PARA LOS ESTILOS DE LA BARRA/////////*/
+
+@keyframes shine {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.bet-value {
+    color: #fff;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.3);
+    font-family: 'Courier New', monospace;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(to right, #1a472a 0%, #2d5a3d 50%, #1a472a 100%);
+    outline: none;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 
+        inset 0 2px 5px rgba(0, 0, 0, 0.5),
+        0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid #0a2818;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #dc2626 0%, #991b1b 60%, #7f1d1d 100%);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 4px solid #d4af37;
+    box-shadow: 
+        0 5px 15px rgba(220, 38, 38, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+    position: relative;
+    transition: all 0.2s ease;
+}
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 8px 25px rgba(220, 38, 38, 0.8),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+}
+.slider::-webkit-slider-thumb:active {
+    transform: scale(0.95);
+}
+.slider::-moz-range-thumb {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #dc2626 0%, #991b1b 60%, #7f1d1d 100%);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 4px solid #d4af37;
+    box-shadow: 
+        0 5px 15px rgba(220, 38, 38, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.3),
+        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+.slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+}
+
+/*/////////FUMADA DE CLAUDE PARA LOS ESTILOS DE LA BARRA/////////*/
+
+
+
+/*////////KEYFRAMES/////////*/
+
+.get-points-animation {
+    animation: points-animation .2s ease-in-out forwards;
+}
+
+@keyframes points-animation {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+/*/////////KEYFRAMES/////////*/
