@@ -261,8 +261,15 @@ function winLoseScreen(winner) {
         moneyRound.innerHTML = `Ganas: ${calcMoney}`;
 
     } else if (winner === 2) {
-        winLoseText.innerHTML = `Que quieres que te diga <br> Al menos no has perdido ninguna pesata...`;
-        winLoseText.innerHTML = "Empate";
+        //En empate, el jugador recupera su apuesta
+        calcMoney = moneyEarned; //El dinero se mantiene igual
+
+        currentMoney.innerHTML = `Wallet: ${calcMoney}€`;
+        moneyEarned = calcMoney;
+        moneySlider.max = moneyEarned;
+
+        winLoseText.innerHTML = `¡Empate! <br> Recuperas tu apuesta`;
+        moneyRound.innerHTML = `Empate: ±0€`;
     }
 
     /////MONEY LOOSE LOGIC/////
