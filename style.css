@@ -8,12 +8,13 @@ body::-webkit-scrollbar {
 }
 
 main {
-    min-height: 79vh;
+    position: relative;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 130px;
+    gap: 230px;
 }
 
 .counter {
@@ -117,22 +118,37 @@ dialog {
 }
 
 #bet-money {
-    position: relative;
-    bottom: 50px;
-    left: 90px;
+    position: absolute;
+    top: 350px;
+    left: 630px;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 #current-money {
     font-size: 30px;
     margin: 0px;
-    padding-top: 100px;
+    padding-bottom: 50px;
 }
 
-#bet-money input {
+#exact-bet {
+    color: white;
+    text-align: center;
+    border: 3px solid #d4af37;
+    border-radius: 15px;
+    font-size: 25px;
+    font-weight: bold;
+    width: 100px;
+    margin-bottom: 35px;
+    padding: 5px;
+    background: radial-gradient(circle, #dc2626 0%, #991b1b 60%, #7f1d1d 100%);
+    outline: none;
+}
+
+#money-slider {
     width: 400px;
     margin-right: 20px;
 }
@@ -140,15 +156,34 @@ dialog {
 .bet-value {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
 
 #bet-amount {
     color: #4ade80;
     font-size: 42px;
+    margin: 0;
 }
 
 
 /*/////////FUMADA DE CLAUDE PARA LOS ESTILOS DE LA BARRA/////////*/
+
+
+/*/////////QUITARLE LAS FLECHAS AL INPUT NUMBER/////////*/
+
+#exact-bet::-webkit-inner-spin-button,
+#exact-bet::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#exact-bet {
+    -moz-appearance: textfield;
+}
+
+/*/////////QUITARLE LAS FLECHAS AL INPUT NUMBER/////////*/
+
 
 @keyframes shine {
     0%, 100% { opacity: 0.5; }

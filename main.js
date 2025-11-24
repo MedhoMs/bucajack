@@ -19,8 +19,9 @@ function getRandomCard() {
 }
 
 window.addEventListener("load", () => {
-    dealerStartRound();
-    playerStartRound();
+    selectBet();
+    //dealerStartRound();
+    //playerStartRound();
 });
 
 ////////VARIABLES////////
@@ -37,8 +38,11 @@ let winLoseText = document.getElementById("win-lose-text");
 let againButton = document.getElementById("again");
 let moneyRound = document.getElementById("money-round");
 let moneySlider = document.getElementById("money-slider");
+let betMoney = document.getElementById("bet-money"); //Div que contiene todo para apostar(slider, dinero, input...)
 let betAmount = document.getElementById("bet-amount");
 let currentMoney = document.getElementById("current-money");
+let exactBet = document.getElementById("exact-bet"); //El input para apostar el dinero justo
+let betMoneySelected = document.getElementById("bet-money-selected"); //Boton para empezar la apuesta
 
 ////////VARIABLES////////
 
@@ -51,6 +55,7 @@ let cardPlayerId = 1; //Id que incrementara a medida que el jugador saque una ca
 let moneyEarned = 1000;
 currentMoney.innerHTML = `Wallet: ${moneyEarned}€`; //El dinero que tengo
 moneySlider.max = moneyEarned;
+exactBet.max = moneyEarned;
 
 ////////GLOBAL VARIABLES////////
 
@@ -68,24 +73,23 @@ stand.addEventListener("mouseup", standCard);
 //El atributo "click" me permite usar tanto el click del raton como el ENTER para disparar el evento
 againButton.addEventListener("click", restartRound);
 
+//Evento para apostar con el dinero exacto seleccionado
+exactBet.addEventListener("keyup", function(e) {
+    if (e.key === "Enter") {
+        betAmount.innerHTML = `${exactBet.value}€`;
+        if (exactBet.value > moneyEarned) {
+            betAmount.innerHTML = `${moneyEarned}€`
+        }
+    }
+});
+
+betMoneySelected.addEventListener("click", function() {
+    betMoney.style.display = "none";
+    dealerStartRound();
+    playerStartRound();
+});
+
 let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo pulsado, y poder usar el listener de "mousemove"
-
-moneySlider.addEventListener('mousedown', function() {
-    isDragging = true;
-});
-
-//Si "isDragging" es true, se activa lo que diga el listener que lo deberia de ser porque lo es cuando mantengo el click por el anterior listener
-moneySlider.addEventListener('mousemove', function() {
-    if (isDragging) {
-        betAmount.innerHTML = `${moneySlider.value}€`;
-    }
-});
-
-moneySlider.addEventListener('mouseup', function() {
-    if (isDragging) {
-        isDragging = false;
-    }
-});
 
 ////////EVENTS////////
 
@@ -99,6 +103,25 @@ moneySlider.addEventListener('mouseup', function() {
 
 
 ////////FUNCTIONS////////
+
+function selectBet() {
+    moneySlider.addEventListener('mousedown', function() {
+        isDragging = true;
+    });
+
+    //Si "isDragging" es true, se activa lo que diga el listener que lo deberia de ser porque lo es cuando mantengo el click por el anterior listener
+    moneySlider.addEventListener('mousemove', function() {
+        if (isDragging) {
+            betAmount.innerHTML = `${moneySlider.value}€`;
+        }
+    });
+
+    moneySlider.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+        }
+    });
+}
 
 function dealerStartRound() {
     //Declaro "cardName = cardsDict[0][0]" y "cardValue = cardsDict[0][1]", que recojo del return de "getRandomCard", 
@@ -242,6 +265,7 @@ function winLoseScreen(winner) {
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia restado por lo que aposté
         moneyEarned = calcMoney; //Actualizo mi dinero maximo
         moneySlider.max = moneyEarned; //Actualizo el max del slider
+        exactBet.max = moneyEarned; //Actualizo el max del input para el dinero exacto
         
         winLoseText.innerHTML = `Has perdido bobolón <br> El dealer te la ha jugado (Esto esta amañado)`;
         moneyRound.innerHTML = `Pierdes: -${moneyEarnedFromBet}`;
@@ -252,6 +276,7 @@ function winLoseScreen(winner) {
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia duplicado por haber ganado
         moneyEarned = calcMoney; //Actualizo mi dinero maximo
         moneySlider.max = moneyEarned; //Actualizo el max del slider
+        exactBet.max = moneyEarned; //Actualizo el max del input para el dinero exacto
 
         winLoseText.innerHTML = `¡Has ganado cabronazo <br> El dealer está llorando en una esquina!`;
 
@@ -308,8 +333,11 @@ function restartRound() {
     moneySlider.style.pointerEvents = "all";
 
     //Llamamos a las funciones para que el dealer y el player vuelva a empezar la ronda
-    dealerStartRound();
-    playerStartRound();
+    //dealerStartRound();
+    //playerStartRound();
+
+    betMoney.style.display = "flex";
+    selectBet();
 }
 
 ////////FUNCTIONS////////
