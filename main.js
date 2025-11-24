@@ -2,6 +2,14 @@ import { cardsArray } from "/js/cardsObject.js";
 
 let cardsDict = Object.entries(cardsArray);
 
+for (let i = 0; i < cardsDict.length; i++) {
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = `/imgs/cards/${cardsDict[i][0]}.png`;
+    document.head.appendChild(link);
+}
+
 function getRandomCard() {
     const randomCardIndex = Math.floor(Math.random() * cardsDict.length);
 
@@ -12,6 +20,7 @@ function getRandomCard() {
 
 window.addEventListener("load", () => {
     dealerStartRound();
+    playerStartRound();
 });
 
 ////////VARIABLES////////
@@ -49,8 +58,13 @@ moneySlider.max = moneyEarned;
 
 ////////EVENTS////////
 
-hit.addEventListener("mouseup", hitCard);
+hit.addEventListener("mouseup", function() {
+    hitCard();
+    //Cuando tire una carta, le quito el pointerEvents para que no se pueda cambiar la apuesta una vez hayas tirado
+    moneySlider.style.pointerEvents = "none";
+});
 stand.addEventListener("mouseup", standCard);
+
 //El atributo "click" me permite usar tanto el click del raton como el ENTER para disparar el evento
 againButton.addEventListener("click", restartRound);
 
@@ -91,6 +105,8 @@ function dealerStartRound() {
     //ya que me devuelve el pair key/value entero
     const [cardName, cardValue] = getRandomCard();
     
+    ///////DEALER SACA UNA CARTA(AUNQ SON 2)///////
+
     //Creo un nuevo <li> con la <img> justo despues del ultimo hijo del <ul>
     dealerDeck.insertAdjacentHTML("beforeend", `<li id='dealer-card-${cardDealerId}'><img src='/imgs/cards/${cardName}.png' alt=''></li>`);
 
@@ -105,8 +121,19 @@ function dealerStartRound() {
     dealerPoints.innerHTML = sumDealerPoints; //Mostrarlo en pantalla
 
     cardDealerId++;
+
+    ///////DEALER SACA UNA CARTA(AUNQ SON 2)///////
 }
 
+/////////ES UNA FUNCION PARA QUE EL JUGADOR AL PRINCIPIO DE CADA RONDA SAQUE 2 CARTAS/////////
+
+function playerStartRound() {
+    for (let i = 0; i < 2; i++) {
+        hitCard();
+    }
+}
+
+/////////ES UNA FUNCION PARA QUE EL JUGADOR AL PRINCIPIO DE CADA RONDA SAQUE 2 CARTAS/////////
 
 function hitCard() {
     //Declaro "cardName = cardsDict[0][0]" y "cardValue = cardsDict[0][1]", que recojo del return de "getRandomCard", 
@@ -138,9 +165,6 @@ function hitCard() {
     setTimeout(() => {
         playerPoints.classList.remove("get-points-animation");
     }, 300);
-
-    //Cuando tire una carta, le quito el pointerEvents para que no se pueda cambiar la apuesta una vez hayas tirado
-    moneySlider.style.pointerEvents = "none";
 
     cardPlayerId++;
 }
@@ -276,8 +300,9 @@ function restartRound() {
     stand.style.pointerEvents = "all";
     moneySlider.style.pointerEvents = "all";
 
-    //Llamamos a la funcion para que el dealer vuelva a empezar la ronda
+    //Llamamos a las funciones para que el dealer y el player vuelva a empezar la ronda
     dealerStartRound();
+    playerStartRound();
 }
 
 ////////FUNCTIONS////////
