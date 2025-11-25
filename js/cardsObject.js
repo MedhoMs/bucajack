@@ -47,33 +47,20 @@ export const cardsArray = {
   "ace_of_clubs": 1,
   "ace_of_diamonds": 1,
   "ace_of_hearts": 1,
-  "ace_of_spades": 1,
   "ace_of_spades2": 1,
 
-  "jack_of_clubs": 10,
   "jack_of_clubs2": 10,
-  "jack_of_diamonds": 10,
   "jack_of_diamonds2": 10,
-  "jack_of_hearts": 10,
   "jack_of_hearts2": 10,
-  "jack_of_spades": 10,
   "jack_of_spades2": 10,
 
-  "king_of_clubs": 10,
   "king_of_clubs2": 10,
-  "king_of_diamonds": 10,
   "king_of_diamonds2": 10,
-  "king_of_hearts": 10,
   "king_of_hearts2": 10,
-  "king_of_spades": 10,
   "king_of_spades2": 10,
 
-  "queen_of_clubs": 10,
   "queen_of_clubs2": 10,
-  "queen_of_diamonds": 10,
   "queen_of_diamonds2": 10,
-  "queen_of_hearts": 10,
   "queen_of_hearts2": 10,
-  "queen_of_spades": 10,
   "queen_of_spades2": 10
 };
