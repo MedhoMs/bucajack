@@ -4,10 +4,40 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="form.css">
         <link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
         <title>BucaJack</title>
+        <!--#BET-MONEY DISPLAY NONE TEMPORAL MIENTRAS SE HACEN LOS FORMULARIOS-->
     </head>
     <body>
+        <div id="login-sign-in-forms">
+            <div id="forms-border">
+                <img src="/imgs/form_decoration.png" alt="" id="corner-up-right">
+                <img src="/imgs/form_decoration.png" alt="" id="corner-down-left">
+                <div id="login-form">
+                    <form action="" id="login">
+                        <label for="login-username">USURNAME:</label>
+                        <input type="text" id="login-username" class="form-inputs" autocomplete="off" maxlength="12">
+                        <label for="login-password">PASSWORD:</label>
+                        <input type="password" id="login-password" class="form-inputs" autocomplete="off" maxlength="20">
+                        <input type="submit" value="ENTRAR" id="login-button" class="submit-button">
+                    </form>
+                    <p>LOGIN</p>
+                </div>
+                
+                <div id="sign-in-form">
+                    <form action="" id="sign-in">
+                        <label for="sign-in-username">USURNAME:</label>
+                        <input type="text" id="sign-in-username" class="form-inputs" autocomplete="off" maxlength="12">
+                        <label for="sign-in-password">PASSWORD:</label>
+                        <input type="password" id="sign-in-password" class="form-inputs" autocomplete="off" maxlength="20">
+                        <input type="submit" value="ENTRAR" id="sign-in-button" class="submit-button">
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+
         <main>
             <div id="dealer-side">
                 <div class="counter" id="dealer-counter">
@@ -61,3 +91,4 @@
         <script src="main.js" type="module"></script>
     </body>
 </html>
+<!--#BET-MONEY DISPLAY NONE TEMPORAL MIENTRAS SE HACEN LOS FORMULARIOS-->

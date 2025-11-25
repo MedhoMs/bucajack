@@ -44,6 +44,13 @@ let currentMoney = document.getElementById("current-money");
 let exactBet = document.getElementById("exact-bet"); //El input para apostar el dinero justo
 let betMoneySelected = document.getElementById("bet-money-selected"); //Boton para empezar la apuesta
 
+////////FORM////////
+
+let loginSignInForm = document.getElementById("login-sign-in-forms"); //Es el div de los dos forms
+let login = document.getElementById("login"); //Es el form de login entero, usado de momento para acceder al boton con un addEventListener "submit"
+
+////////FORM////////
+
 ////////VARIABLES////////
 
 
@@ -57,6 +64,9 @@ currentMoney.innerHTML = `Wallet: ${moneyEarned}€`; //El dinero que tengo
 moneySlider.max = moneyEarned;
 exactBet.max = moneyEarned;
 
+//Le añado una clase al body que oscurece al fondo, cuando le de al boton de apostar, le quitaré la clase
+document.body.classList.add("darker");
+
 ////////GLOBAL VARIABLES////////
 
 
@@ -69,6 +79,10 @@ hit.addEventListener("mouseup", function() {
     moneySlider.style.pointerEvents = "none";
 });
 stand.addEventListener("mouseup", standCard);
+
+//Le quito los eventos y se los reactivo cuando le den al boton de comenzar
+hit.style.pointerEvents = "none";
+stand.style.pointerEvents = "none"
 
 //El atributo "click" me permite usar tanto el click del raton como el ENTER para disparar el evento
 againButton.addEventListener("click", restartRound);
@@ -85,11 +99,39 @@ exactBet.addEventListener("keyup", function(e) {
 
 betMoneySelected.addEventListener("click", function() {
     betMoney.style.display = "none";
+    hit.style.pointerEvents = "all";
+    stand.style.pointerEvents = "all"
+
+    //Aqui le quito la clase (fondo oscurecido)
+    document.body.classList.remove("darker");
+
     dealerStartRound();
     playerStartRound();
 });
 
 let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo pulsado, y poder usar el listener de "mousemove"
+
+
+////////FORM////////
+
+//Al cargar la pagina, comprobar si el usuario ya ha iniciado sesion
+window.addEventListener("DOMContentLoaded", function() {
+    if (sessionStorage.getItem("sesionIniciada") === "true") {
+        loginSignInForm.style.display = "none";
+        betMoney.style.display = "flex";
+    }
+});
+
+//Al hacer submit del formulario ->
+login.addEventListener("submit", function(e) {
+    e.preventDefault();
+    sessionStorage.setItem("sesionIniciada", "true"); //Lo guardo en el Session
+    loginSignInForm.style.display = "none";
+    betMoney.style.display = "flex";
+});
+
+////////FORM////////
+
 
 ////////EVENTS////////
 
@@ -105,6 +147,8 @@ let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo p
 ////////FUNCTIONS////////
 
 function selectBet() {
+    document.body.style.filter = 
+
     moneySlider.addEventListener('mousedown', function() {
         isDragging = true;
     });
@@ -299,7 +343,11 @@ function winLoseScreen(winner) {
 
     /////MONEY LOOSE LOGIC/////
 
-
+    //Si la cantidad apostada (texto verde donde decides cuanto apostar) al final es mayor que la cantidad en la wallet, que se actualice al dinero
+    //actual de la wallet
+    if (moneyEarnedFromBet > moneyEarned) {
+        betAmount.innerHTML = `${moneyEarned}€`;
+    }
 
     /////MONEY LOOSE LOGIC/////
 
@@ -332,9 +380,8 @@ function restartRound() {
     stand.style.pointerEvents = "all";
     moneySlider.style.pointerEvents = "all";
 
-    //Llamamos a las funciones para que el dealer y el player vuelva a empezar la ronda
-    //dealerStartRound();
-    //playerStartRound();
+    //Le añado una clase al body que oscurece al fondo, cuando le de al boton de apostar, le quitaré la clase
+    document.body.classList.add("darker");
 
     betMoney.style.display = "flex";
     selectBet();
