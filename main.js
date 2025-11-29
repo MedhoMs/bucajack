@@ -48,6 +48,30 @@ let betMoneySelected = document.getElementById("bet-money-selected"); //Boton pa
 
 let loginSignInForm = document.getElementById("login-sign-in-forms"); //Es el div de los dos forms
 let login = document.getElementById("login"); //Es el form de login entero, usado de momento para acceder al boton con un addEventListener "submit"
+let signIn = document.getElementById("sign-in");
+let formsBorder = document.getElementById("forms-border");
+let loginText = document.getElementById("login-text");
+let signInText = document.getElementById("sign-in-text");
+
+let changeToSignIn = document.getElementById("change-to-sign-in");
+let changeToLogin = document.getElementById("change-to-login");
+
+
+changeToSignIn.addEventListener("mouseup", function() {
+    login.style.display = "none";
+    loginText.style.opacity = "0";
+    formsBorder.style.background = "linear-gradient(to left, #1b5928 50%, #ffffff 50%)"
+    signIn.style.display = "flex"
+    signInText.style.opacity = "1";
+});
+
+changeToLogin.addEventListener("mouseup", function() {
+    signIn.style.display = "none";
+    signInText.style.opacity = "0";
+    formsBorder.style.background = "linear-gradient(to left, #ffffff 50%, #1b5928 50%)"
+    login.style.display = "flex";
+    loginText.style.opacity = "1";
+})
 
 ////////FORM////////
 
@@ -315,7 +339,7 @@ function winLoseScreen(winner) {
         moneyRound.innerHTML = `Pierdes: -${moneyEarnedFromBet}`;
 
     } else if (winner === 1) {
-        calcMoney = moneyEarned + (moneyEarnedFromBet * 2);
+        calcMoney = (moneyEarned + (moneyEarnedFromBet * 2) / 2);
 
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia duplicado por haber ganado
         moneyEarned = calcMoney; //Actualizo mi dinero maximo

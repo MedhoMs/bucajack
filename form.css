@@ -8,7 +8,7 @@
     z-index: 1;
 }
 
-#forms-border {
+#forms-border { /*Engloba a los dos forms para ponerle padding y el fondo*/
     position: relative;
     display: flex;
     justify-content: center;
@@ -19,6 +19,7 @@
     box-shadow: 1px 1px 20px #d4af37;
     border-radius: 30px;
     background: linear-gradient(to left, #ffffff 50%, #1b5928 50%);
+    transition: .3s ease-in-out;
 }
 
 #forms-border img {
@@ -37,30 +38,14 @@
     right: 305px;
 }
 
-#login-form {
+/*////////////////////// LOGIN //////////////////////*/
+
+#login-form-div { /*Div que engloba al form de login*/
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#login-form p {
-    font-size: 30px;
-    font-weight: bold;
-    position: absolute;
-    right: 45px;
-    color: #1b5928;
-}
-
-#sign-in-form {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#sign-in-form p {
-    position: absolute;
+    transition: .3s ease-in-out;
 }
 
 #login { /*El form directamente*/
@@ -70,12 +55,79 @@
     margin-right: 324px;
 }
 
+#login-form p {
+    margin: 0;
+}
+
+#change-to-sign-in {
+    position: absolute;
+    bottom: -50px;
+    transition: .2s ease-in-out;
+}
+
+#change-to-sign-in:hover {
+    cursor: pointer;
+    color: rgb(169, 169, 169);
+}
+
+#login-text {
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    right: 45px;
+    color: #1b5928;
+}
+
+
+
+/*////////////////////// LOGIN //////////////////////*/
+
+
+/*////////////////////// SIGN IN //////////////////////*/
+
+#sign-in-form-div { /*Div que engloba al form de sign in*/
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s ease-in-out;
+}
+
 #sign-in { /*El form directamente*/
     display: none;
     flex-direction: column;
     justify-content: center;
     margin-left: 324px;
 }
+
+#sign-in-form-div p {
+    position: absolute;
+}
+
+#change-to-login {
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    transition: .2s ease-in-out;
+}
+
+#change-to-login:hover {
+    cursor: pointer;
+    color: rgb(169, 169, 169);
+}
+
+#sign-in-text {
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    left: 10px;
+    color: #1b5928;
+    opacity: 0;
+}
+
+/*////////////////////// SIGN IN //////////////////////*/
+
+
 
 label {
     text-align: center;
