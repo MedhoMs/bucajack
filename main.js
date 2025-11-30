@@ -43,6 +43,8 @@ let betAmount = document.getElementById("bet-amount");
 let currentMoney = document.getElementById("current-money");
 let exactBet = document.getElementById("exact-bet"); //El input para apostar el dinero justo
 let betMoneySelected = document.getElementById("bet-money-selected"); //Boton para empezar la apuesta
+let graphContainer = document.getElementById("graph-container"); //Div que contiene el grafico win|lose
+
 
 ////////FORM////////
 
@@ -53,9 +55,14 @@ let formsBorder = document.getElementById("forms-border");
 let loginText = document.getElementById("login-text");
 let signInText = document.getElementById("sign-in-text");
 
+let loginButton = document.getElementById("login-button");
+
 let changeToSignIn = document.getElementById("change-to-sign-in");
 let changeToLogin = document.getElementById("change-to-login");
 
+loginButton.addEventListener("mouseup", function() {
+    betMoney.style.display = "flex";
+})
 
 changeToSignIn.addEventListener("mouseup", function() {
     login.style.display = "none";
@@ -87,6 +94,10 @@ let moneyEarned = 1000;
 currentMoney.innerHTML = `Wallet: ${moneyEarned}€`; //El dinero que tengo
 moneySlider.max = moneyEarned;
 exactBet.max = moneyEarned;
+
+//Arrays para guardar las cartas usadas por el dealer/player que se enviaran a calculatePoints()
+let playerCards = [];
+let dealerCards = [];
 
 //Le añado una clase al body que oscurece al fondo, cuando le de al boton de apostar, le quitaré la clase
 document.body.classList.add("darker");
@@ -121,8 +132,10 @@ exactBet.addEventListener("keyup", function(e) {
     }
 });
 
+//Evento cuando le doy al boton de apostar
 betMoneySelected.addEventListener("click", function() {
     betMoney.style.display = "none";
+    graphContainer.style.display = "none";
     hit.style.pointerEvents = "all";
     stand.style.pointerEvents = "all"
 
@@ -171,7 +184,6 @@ login.addEventListener("submit", function(e) {
 ////////FUNCTIONS////////
 
 function selectBet() {
-    document.body.style.filter = 
 
     moneySlider.addEventListener('mousedown', function() {
         isDragging = true;
@@ -191,6 +203,23 @@ function selectBet() {
     });
 }
 
+function calculatePoints(cards) {
+    //Sumo el valor de todas las cartas (tratando los ases inicialmente como 11)
+    let total = cards.reduce((acc, card) => acc + card.value, 0);
+
+    //Cuento cuántos ases están valiendo 11 actualmente
+    let aces = cards.filter(card => card.value === 11).length;
+
+    //Si me paso de 21 y tengo ases que puedo convertir a 1, los ajusto uno por uno
+    while (total > 21 && aces > 0) {
+        total -= 10; //Convertir un As de 11 a 1 equivale a restar 10 puntos
+        aces--;      //Marco que ya ajusté un As para no convertirlo dos veces
+    }
+
+    //Devuelvo la suma final ajustada según las reglas del Blackjack
+    return total;
+}
+
 function dealerStartRound() {
     //Declaro "cardName = cardsDict[0][0]" y "cardValue = cardsDict[0][1]", que recojo del return de "getRandomCard", 
     //ya que me devuelve el pair key/value entero
@@ -208,8 +237,20 @@ function dealerStartRound() {
     newDealerCard.style.transform = "translateY(0px)";
 
     let currentDealerPoints = parseInt(dealerPoints.innerHTML); //Puntos actuales del dealer
-    let sumDealerPoints = currentDealerPoints + cardValue; //Los puntos sumados de los actuales del dealer + el valor de la carta que ha sacado
+
+    //Guardo la carta del dealer en su array de cartas
+    dealerCards.push({ name: cardName, value: cardValue });
+
+    //Recalculo los puntos del dealer (ajustando ases automáticamente si es necesario)
+    let sumDealerPoints = calculatePoints(dealerCards);
+
     dealerPoints.innerHTML = sumDealerPoints; //Mostrarlo en pantalla
+
+    dealerPoints.classList.add("get-points-animation"); //Animacion para los puntos
+
+    setTimeout(() => {
+        dealerPoints.classList.remove("get-points-animation"); //A los 3 ms se quita la animacion, para que si vuelves a tirar se añada
+    }, 300);
 
     cardDealerId++;
 
@@ -241,7 +282,12 @@ function hitCard() {
     newPlayerCard.style.transform = "translateY(0px)";
 
     let currentPlayerPoints = parseInt(playerPoints.innerHTML); //Mis puntos actuales
-    let sumPlayerPoints = currentPlayerPoints + cardValue; //Los puntos sumados de mis actuales + el valor de la carta que he sacado
+
+    //Guardo la carta del player en su array de cartas
+    playerCards.push({ name: cardName, value: cardValue });
+
+    //Recalculo los puntos del player (ajustando ases automáticamente si es necesario)
+    let sumPlayerPoints = calculatePoints(playerCards);
 
     if (sumPlayerPoints >= 21) {
         hit.style.pointerEvents = "none"; //Para que si tengo 21 o si me he pasado, que no se puedan spamear las cartas
@@ -251,10 +297,10 @@ function hitCard() {
 
     playerPoints.innerHTML = sumPlayerPoints; //Mostrarlo en pantalla
 
-    playerPoints.classList.add("get-points-animation");
+    playerPoints.classList.add("get-points-animation"); //Animacion para los puntos
 
     setTimeout(() => {
-        playerPoints.classList.remove("get-points-animation");
+        playerPoints.classList.remove("get-points-animation"); //A los 3 ms se quita la animacion, para que si vuelves a tirar se añada
     }, 300);
 
     cardPlayerId++;
@@ -399,6 +445,10 @@ function restartRound() {
     dealerPoints.innerHTML = 0;
     playerPoints.innerHTML = 0;
 
+    //Vacio los arrays que guardan las cartas de las manos jugadas
+    playerCards = [];
+    dealerCards = [];
+
     //Rehabilito los eventos
     hit.style.pointerEvents = "all";
     stand.style.pointerEvents = "all";
@@ -408,6 +458,8 @@ function restartRound() {
     document.body.classList.add("darker");
 
     betMoney.style.display = "flex";
+    graphContainer.style.display = "block";
+    
     selectBet();
 }
 

@@ -44,10 +44,10 @@ export const cardsArray = {
   "10_of_hearts": 10,
   "10_of_spades": 10,
 
-  "ace_of_clubs": 1,
-  "ace_of_diamonds": 1,
-  "ace_of_hearts": 1,
-  "ace_of_spades2": 1,
+  "ace_of_clubs": 11,
+  "ace_of_diamonds": 11,
+  "ace_of_hearts": 11,
+  "ace_of_spades2": 11,
 
   "jack_of_clubs2": 10,
   "jack_of_diamonds2": 10,
