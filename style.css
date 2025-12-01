@@ -327,4 +327,542 @@ dialog {
 /*/////////KEYFRAMES/////////*/
 
 
+/*/////////RESPONSIVE/////////*/
+
+/* RESPONSIVE PARA TABLETS (768px - 1024px) */
+@media (max-width: 1024px) {
+    main {
+        gap: 150px;
+    }
+
+    #dealer-side,
+    #player-side {
+        gap: 150px;
+    }
+
+    ul {
+        width: 450px;
+        margin-left: 50px;
+    }
+
+    .counter {
+        margin-left: 40px;
+        font-size: 25px;
+    }
+
+    img {
+        width: 120px;
+    }
+
+    #cards-deck {
+        right: 50px;
+        margin-left: 80px;
+    }
+
+    #buttons {
+        width: 200px;
+    }
+
+    button {
+        font-size: 20px;
+        width: 180px;
+        padding: 8px 20px;
+    }
+
+    #graph-container {
+        width: 300px;
+        height: 150px;
+        right: 10px;
+        bottom: 5px;
+    }
+
+    #graph-container p {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    #graph-container img {
+        width: 300px;
+        height: 150px;
+    }
+
+    /* Bet Money Section */
+    #money-slider {
+        width: 300px;
+    }
+
+    #bet-amount {
+        font-size: 36px;
+    }
+
+    #current-money {
+        font-size: 25px;
+    }
+}
+
+/* RESPONSIVE PARA TABLETS PEQUEÑAS (600px - 768px) */
+@media (max-width: 768px) {
+    main {
+        gap: 100px;
+        min-height: 100vh;
+    }
+
+    #dealer-side,
+    #player-side {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    #dealer-side {
+        margin-top: 20px;
+    }
+
+    ul {
+        width: 100%;
+        max-width: 400px;
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    li {
+        margin: 5px;
+    }
+
+    .counter {
+        margin-left: 0;
+        font-size: 22px;
+    }
+
+    img {
+        width: 100px;
+    }
+
+    #cards-deck {
+        right: 0;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    #buttons {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    button {
+        font-size: 18px;
+        width: 140px;
+        padding: 10px 15px;
+    }
+
+    /* Graph Container */
+    #graph-container {
+        position: relative;
+        width: 90%;
+        max-width: 350px;
+        height: auto;
+        right: auto;
+        bottom: auto;
+        margin: 20px auto;
+    }
+
+    #graph-container p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    #graph-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Bet Money Section */
+    #bet-money {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    #money-slider {
+        width: 250px;
+        margin-right: 0;
+    }
+
+    #bet-amount {
+        font-size: 32px;
+    }
+
+    #current-money {
+        font-size: 22px;
+        padding-bottom: 0;
+    }
+
+    #exact-bet {
+        font-size: 20px;
+        width: 90px;
+        margin-bottom: 20px;
+    }
+
+    /* Forms */
+    #forms-border {
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px 25px;
+        background: linear-gradient(to bottom, #ffffff 50%, #1b5928 50%);
+    }
+
+    #corner-down-left {
+        right: 10px;
+        bottom: 10px;
+    }
+
+    #login-form-div,
+    #sign-in-form-div {
+        width: 100%;
+    }
+
+    #login,
+    #sign-in {
+        margin: 0;
+        width: 100%;
+        align-items: center;
+    }
+
+    .form-inputs {
+        width: 220px;
+        font-size: 22px;
+        margin: 15px 0;
+    }
+
+    label {
+        font-size: 25px;
+    }
+
+    .submit-button {
+        font-size: 22px;
+    }
+
+    #login-text,
+    #sign-in-text {
+        position: relative;
+        right: auto;
+        left: auto;
+        margin-top: 20px;
+    }
+
+    #change-to-sign-in,
+    #change-to-login {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 15px;
+    }
+}
+
+/* RESPONSIVE PARA MÓVILES (hasta 600px) */
+@media (max-width: 600px) {
+    main {
+        gap: 60px;
+        padding: 10px;
+    }
+
+    #dealer-side,
+    #player-side {
+        width: 100%;
+        gap: 20px;
+    }
+
+    ul {
+        max-width: 320px;
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    li {
+        margin: 3px;
+    }
+
+    .counter {
+        font-size: 20px;
+    }
+
+    .counter h3 {
+        margin: 5px 0;
+    }
+
+    .counter p {
+        margin: 5px 0;
+    }
+
+    img {
+        width: 80px;
+    }
+
+    #cards-deck {
+        margin-top: 10px;
+    }
+
+    #dealer-deck li,
+    #player-deck li {
+        transform: none;
+    }
+
+    #buttons {
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        width: 120px;
+        padding: 8px 12px;
+        border-radius: 10px;
+    }
+
+    /* Dialog */
+    dialog {
+        width: 90%;
+        max-width: 300px;
+        padding: 20px;
+    }
+
+    #dialog-body {
+        padding: 10px;
+    }
+
+    #win-lose-text {
+        font-size: 20px;
+    }
+
+    #money-round {
+        font-size: 16px;
+    }
+
+    #again {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    /* Graph Container */
+    #graph-container {
+        width: 95%;
+        max-width: 300px;
+    }
+
+    #graph-container p {
+        font-size: 16px;
+        padding: 3px;
+    }
+
+    /* Bet Money Section */
+    #bet-money {
+        padding: 15px;
+        gap: 20px;
+    }
+
+    #money-slider {
+        width: 200px;
+    }
+
+    .slider::-webkit-slider-thumb {
+        width: 40px;
+        height: 40px;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 40px;
+        height: 40px;
+    }
+
+    #bet-amount {
+        font-size: 28px;
+    }
+
+    #current-money {
+        font-size: 20px;
+    }
+
+    #exact-bet {
+        font-size: 18px;
+        width: 80px;
+        margin-bottom: 15px;
+    }
+
+    #bet-money-selected {
+        font-size: 18px;
+        padding: 10px 20px;
+        width: 160px;
+    }
+
+    /* Forms */
+    #login-sign-in-forms {
+        min-height: 100vh;
+        padding: 20px 10px;
+    }
+
+    #forms-border {
+        padding: 30px 20px;
+        gap: 30px;
+        border-width: 3px;
+    }
+
+    #forms-border img {
+        width: 40px;
+    }
+
+    .form-inputs {
+        width: 200px;
+        font-size: 20px;
+        margin: 12px 0;
+        padding: 8px;
+    }
+
+    label {
+        font-size: 22px;
+    }
+
+    .submit-button {
+        font-size: 20px;
+        padding: 8px;
+    }
+
+    #login-text,
+    #sign-in-text {
+        font-size: 26px;
+    }
+
+    #change-to-sign-in,
+    #change-to-login {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+}
+
+/* RESPONSIVE PARA MÓVILES MUY PEQUEÑOS (hasta 400px) */
+@media (max-width: 400px) {
+    main {
+        gap: 40px;
+    }
+
+    ul {
+        max-width: 280px;
+    }
+
+    img {
+        width: 70px;
+    }
+
+    .counter {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 14px;
+        width: 100px;
+        padding: 6px 10px;
+    }
+
+    #money-slider {
+        width: 180px;
+    }
+
+    #bet-amount {
+        font-size: 24px;
+    }
+
+    #current-money {
+        font-size: 18px;
+    }
+
+    #exact-bet {
+        width: 70px;
+        font-size: 16px;
+    }
+
+    .form-inputs {
+        width: 180px;
+        font-size: 18px;
+    }
+
+    label {
+        font-size: 20px;
+    }
+
+    #login-text,
+    #sign-in-text {
+        font-size: 24px;
+    }
+
+    #forms-border {
+        padding: 25px 15px;
+    }
+}
+
+/* ORIENTACIÓN HORIZONTAL EN MÓVILES */
+@media (max-height: 500px) and (orientation: landscape) {
+    main {
+        flex-direction: row;
+        gap: 40px;
+        justify-content: space-around;
+        padding: 10px;
+    }
+
+    #dealer-side,
+    #player-side {
+        flex-direction: column;
+        gap: 15px;
+        width: auto;
+    }
+
+    ul {
+        width: auto;
+        max-width: 250px;
+    }
+
+    img {
+        width: 60px;
+    }
+
+    #cards-deck {
+        margin-top: 0;
+    }
+
+    .counter {
+        font-size: 16px;
+    }
+
+    #buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        width: 100px;
+        padding: 5px 10px;
+    }
+
+    #graph-container {
+        width: 200px;
+        right: 5px;
+        bottom: 5px;
+    }
+
+    #graph-container p {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    #graph-container img {
+        width: 200px;
+        height: 100px;
+    }
+}
+
+/*/////////RESPONSIVE/////////*/
+
+
 /*#BET-MONEY DISPLAY NONE TEMPORAL MIENTRAS SE HACEN LOS FORMULARIOS*/

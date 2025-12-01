@@ -22,6 +22,7 @@
     transition: .3s ease-in-out;
 }
 
+
 #forms-border img {
     width: 50px;
 }
@@ -161,3 +162,9 @@ label {
 .submit-button:active {
     transform: scale(.9);
 }
+
+
+/*/////////RESPONSIVE/////////*/
+
+
+/*/////////RESPONSIVE/////////*/
