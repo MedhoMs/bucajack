@@ -21,7 +21,7 @@
                         <label for="login-password">PASSWORD:</label>
                         <input type="password" id="login-password" class="form-inputs" autocomplete="off" maxlength="20">
                         <input type="submit" value="ENTRAR" id="login-button" class="submit-button">
-                        <p id="change-to-sign-in">Sign in -></p>
+                        <p id="change-to-sign-in">Sign in &larr;</p>
                     </form>
                     <p id="login-text">LOGIN</p>
                 </div>
@@ -33,7 +33,7 @@
                         <label for="sign-in-password">PASSWORD:</label>
                         <input type="password" id="sign-in-password" class="form-inputs" autocomplete="off" maxlength="20">
                         <input type="submit" value="ENTRAR" id="sign-in-button" class="submit-button">
-                        <p id="change-to-login"><- Login</p>
+                        <p id="change-to-login">&larr; Login</p>
                     </form>
                     <p id="sign-in-text">SIGN IN</p>
                 </div>
@@ -73,8 +73,8 @@
             <div id="bet-money">
                 <p id="current-money"></p>
                 <div class="bet-value">
-                    <p id="bet-amount">50€</p>
-                    <input type="range" min="1" value="50" class="slider" id="money-slider">
+                    <p id="bet-amount">1€</p>
+                    <input type="range" min="1" value="1" class="slider" id="money-slider">
                     <button id="bet-money-selected">¡APOSTAR!</button>
                 </div>
                 <input type="number" min="1" id="exact-bet">
@@ -96,6 +96,8 @@
         </dialog>
 
         <script src="main.js" type="module"></script>
+        <script src="/src/appwrite.js" type="module"></script>
+        <script src="/src/forms.js" type="module"></script>
     </body>
 </html>
 <!--#BET-MONEY DISPLAY NONE TEMPORAL MIENTRAS SE HACEN LOS FORMULARIOS-->

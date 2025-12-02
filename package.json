@@ -1,5 +1,17 @@
 {
+  "name": "bucajack",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
+    "appwrite": "^21.4.0",
     "chart.js": "^4.5.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
   }
 }

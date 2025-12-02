@@ -90,10 +90,11 @@ changeToLogin.addEventListener("mouseup", function() {
 
 let cardDealerId = 1; //Id que incrementara a medida que el dealer saque una carta
 let cardPlayerId = 1; //Id que incrementara a medida que el jugador saque una carta
-let moneyEarned = 1000;
-currentMoney.innerHTML = `Wallet: ${moneyEarned}€`; //El dinero que tengo
-moneySlider.max = moneyEarned;
-exactBet.max = moneyEarned;
+//let moneyEarned = 100;
+window.moneyEarned = window.moneyEarned || 100;
+currentMoney.innerHTML = `Wallet: ${window.moneyEarned}€`; //El dinero que tengo
+moneySlider.max = window.moneyEarned;
+exactBet.max = window.moneyEarned;
 
 //Arrays para guardar las cartas usadas por el dealer/player que se enviaran a calculatePoints()
 let playerCards = [];
@@ -126,8 +127,8 @@ againButton.addEventListener("click", restartRound);
 exactBet.addEventListener("keyup", function(e) {
     if (e.key === "Enter") {
         betAmount.innerHTML = `${exactBet.value}€`;
-        if (exactBet.value > moneyEarned) {
-            betAmount.innerHTML = `${moneyEarned}€`
+        if (exactBet.value > window.moneyEarned) {
+            betAmount.innerHTML = `${window.moneyEarned}€`
         }
     }
 });
@@ -151,21 +152,21 @@ let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo p
 
 ////////FORM////////
 
-//Al cargar la pagina, comprobar si el usuario ya ha iniciado sesion
-window.addEventListener("DOMContentLoaded", function() {
-    if (sessionStorage.getItem("sesionIniciada") === "true") {
-        loginSignInForm.style.display = "none";
-        betMoney.style.display = "flex";
-    }
-});
-
-//Al hacer submit del formulario ->
-login.addEventListener("submit", function(e) {
-    e.preventDefault();
-    sessionStorage.setItem("sesionIniciada", "true"); //Lo guardo en el Session
-    loginSignInForm.style.display = "none";
-    betMoney.style.display = "flex";
-});
+////Al cargar la pagina, comprobar si el usuario ya ha iniciado sesion
+//window.addEventListener("DOMContentLoaded", function() {
+//    if (sessionStorage.getItem("sesionIniciada") === "true") {
+//        loginSignInForm.style.display = "none";
+//        betMoney.style.display = "flex";
+//    }
+//});
+//
+////Al hacer submit del formulario ->
+//login.addEventListener("submit", function(e) {
+//    e.preventDefault();
+//    sessionStorage.setItem("sesionIniciada", "true"); //Lo guardo en el Session
+//    loginSignInForm.style.display = "none";
+//    betMoney.style.display = "flex";
+//});
 
 ////////FORM////////
 
@@ -374,23 +375,33 @@ function winLoseScreen(winner) {
     moneyEarnedFromBet = parseInt(moneyEarnedFromBet); //Lo convierto a int para las operaciones
 
     if (winner === 0) {
-        calcMoney = moneyEarned - moneyEarnedFromBet;  
+        calcMoney = window.moneyEarned - moneyEarnedFromBet;  
 
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia restado por lo que aposté
-        moneyEarned = calcMoney; //Actualizo mi dinero maximo
-        moneySlider.max = moneyEarned; //Actualizo el max del slider
-        exactBet.max = moneyEarned; //Actualizo el max del input para el dinero exacto
+        window.moneyEarned = calcMoney; //Actualizo mi dinero maximo
+        moneySlider.max = window.moneyEarned; //Actualizo el max del slider
+        exactBet.max = window.moneyEarned; //Actualizo el max del input para el dinero exacto
         
+        //ACTUALIZAR EN LA BASE DE DATOS
+        if (window.updateWalletInDB) {
+            window.updateWalletInDB(window.moneyEarned);
+        }
+
         winLoseText.innerHTML = `Has perdido bobolón <br> El dealer te la ha jugado (Esto esta amañado)`;
         moneyRound.innerHTML = `Pierdes: -${moneyEarnedFromBet}`;
 
     } else if (winner === 1) {
-        calcMoney = (moneyEarned + (moneyEarnedFromBet * 2) / 2);
+        calcMoney = (window.moneyEarned + (moneyEarnedFromBet * 2) / 2);
 
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia duplicado por haber ganado
-        moneyEarned = calcMoney; //Actualizo mi dinero maximo
-        moneySlider.max = moneyEarned; //Actualizo el max del slider
-        exactBet.max = moneyEarned; //Actualizo el max del input para el dinero exacto
+        window.moneyEarned = calcMoney; //Actualizo mi dinero maximo
+        moneySlider.max = window.moneyEarned; //Actualizo el max del slider
+        exactBet.max = window.moneyEarned; //Actualizo el max del input para el dinero exacto
+
+        //ACTUALIZAR EN LA BASE DE DATOS
+        if (window.updateWalletInDB) {
+            window.updateWalletInDB(window.moneyEarned);
+        }
 
         winLoseText.innerHTML = `¡Has ganado cabronazo <br> El dealer está llorando en una esquina!`;
 
@@ -401,11 +412,16 @@ function winLoseScreen(winner) {
 
     } else if (winner === 2) {
         //En empate, el jugador recupera su apuesta
-        calcMoney = moneyEarned; //El dinero se mantiene igual
+        calcMoney = window.moneyEarned; //El dinero se mantiene igual
 
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`;
-        moneyEarned = calcMoney;
-        moneySlider.max = moneyEarned;
+        window.moneyEarned = calcMoney;
+        moneySlider.max = window.moneyEarned;
+
+        //ACTUALIZAR EN LA BASE DE DATOS
+        if (window.updateWalletInDB) {
+            window.updateWalletInDB(window.moneyEarned);
+        }
 
         winLoseText.innerHTML = `¡Empate! <br> Recuperas tu apuesta`;
         moneyRound.innerHTML = `Empate: ±0€`;
@@ -415,8 +431,8 @@ function winLoseScreen(winner) {
 
     //Si la cantidad apostada (texto verde donde decides cuanto apostar) al final es mayor que la cantidad en la wallet, que se actualice al dinero
     //actual de la wallet
-    if (moneyEarnedFromBet > moneyEarned) {
-        betAmount.innerHTML = `${moneyEarned}€`;
+    if (moneyEarnedFromBet > window.moneyEarned) {
+        betAmount.innerHTML = `${window.moneyEarned}€`;
     }
 
     /////MONEY LOOSE LOGIC/////
