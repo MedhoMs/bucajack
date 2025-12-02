@@ -60,10 +60,6 @@ let loginButton = document.getElementById("login-button");
 let changeToSignIn = document.getElementById("change-to-sign-in");
 let changeToLogin = document.getElementById("change-to-login");
 
-loginButton.addEventListener("mouseup", function() {
-    betMoney.style.display = "flex";
-})
-
 changeToSignIn.addEventListener("mouseup", function() {
     login.style.display = "none";
     loginText.style.opacity = "0";

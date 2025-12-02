@@ -59,9 +59,11 @@ document.getElementById('login').addEventListener('submit', async (e) => {
             document.getElementById('exact-bet').max = window.moneyEarned;
         }
         
-        // Ocultar formularios y mostrar juego
+        //Si el resultado es success (el usuario logeado existe) se ocultan los forms y se muestra la pantalla de apuesta
         document.getElementById('login-sign-in-forms').style.display = 'none';
-        document.getElementById('bet-money').style.display = 'flex';
+        
+        const betMoney = document.getElementById('bet-money');
+        betMoney.style.display = 'flex';
         
         alert('¡Bienvenido ' + currentUser.username + '!');
     } else {
