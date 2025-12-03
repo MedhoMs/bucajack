@@ -1,4 +1,5 @@
-import { cardsArray } from "/js/cardsObject.js";
+import { cardsArray } from "./src/cardsObject.js";
+import { randomWarningsArray } from "./src/randomWarnings";
 
 let cardsDict = Object.entries(cardsArray);
 
@@ -44,7 +45,7 @@ let currentMoney = document.getElementById("current-money");
 let exactBet = document.getElementById("exact-bet"); //El input para apostar el dinero justo
 let betMoneySelected = document.getElementById("bet-money-selected"); //Boton para empezar la apuesta
 let graphContainer = document.getElementById("graph-container"); //Div que contiene el grafico win|lose
-
+let betWarning = document.getElementById("bet-warning"); //Frases aleatorias en la pantalla de apostar
 
 ////////FORM////////
 
@@ -152,7 +153,8 @@ let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo p
 
 ////////LOGIC////////
 
-
+let randomWarningsIndex = Math.floor(Math.random() * randomWarningsArray.length); //Index aleatorio para una frase del array de warnings
+betWarning.innerHTML = randomWarningsArray[randomWarningsIndex];
 
 ////////LOGIC////////
 
