@@ -60,7 +60,7 @@ export async function loginUser(username, password) {
         );
 
         if (response.documents.length === 0) {
-            throw new Error('Usuario no encontrado');
+            throw new Error('Usuario no encontrado, prueba de nuevo o registrate');
         }
 
         const user = response.documents[0];

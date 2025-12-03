@@ -53,7 +53,7 @@ document.getElementById('login').addEventListener('submit', async (e) => {
         const userData = await getUserData(currentUser.$id);
         if (userData.success) {
             // Actualizar la variable global del juego
-            window.moneyEarned = userData.user.wallet || 100;
+            window.moneyEarned = userData.user.wallet;
             document.getElementById('current-money').innerHTML = `Wallet: ${window.moneyEarned}€`;
             document.getElementById('money-slider').max = window.moneyEarned;
             document.getElementById('exact-bet').max = window.moneyEarned;
@@ -101,7 +101,7 @@ window.addEventListener('DOMContentLoaded', async function() {
                 currentUser = userData.user;
                 
                 // Actualizar dinero del juego
-                window.moneyEarned = userData.user.wallet || 1000;
+                window.moneyEarned = userData.user.wallet;
                 document.getElementById('current-money').innerHTML = `Wallet: ${window.moneyEarned}€`;
                 document.getElementById('money-slider').max = window.moneyEarned;
                 document.getElementById('exact-bet').max = window.moneyEarned;

@@ -86,11 +86,12 @@ changeToLogin.addEventListener("mouseup", function() {
 
 let cardDealerId = 1; //Id que incrementara a medida que el dealer saque una carta
 let cardPlayerId = 1; //Id que incrementara a medida que el jugador saque una carta
-//let moneyEarned = 100;
+let sumPlayerPoints; //Puntos sumados del jugador
 window.moneyEarned = window.moneyEarned || 100;
 currentMoney.innerHTML = `Wallet: ${window.moneyEarned}€`; //El dinero que tengo
 moneySlider.max = window.moneyEarned;
 exactBet.max = window.moneyEarned;
+let blacjackFirstHand = false; //Boolean que me servirá para saber si saco blackjack con la primera mano
 
 //Arrays para guardar las cartas usadas por el dealer/player que se enviaran a calculatePoints()
 let playerCards = [];
@@ -144,27 +145,6 @@ betMoneySelected.addEventListener("click", function() {
 });
 
 let isDragging = false; //Boolean para comprobar si la sliding bar esta siendo pulsado, y poder usar el listener de "mousemove"
-
-
-////////FORM////////
-
-////Al cargar la pagina, comprobar si el usuario ya ha iniciado sesion
-//window.addEventListener("DOMContentLoaded", function() {
-//    if (sessionStorage.getItem("sesionIniciada") === "true") {
-//        loginSignInForm.style.display = "none";
-//        betMoney.style.display = "flex";
-//    }
-//});
-//
-////Al hacer submit del formulario ->
-//login.addEventListener("submit", function(e) {
-//    e.preventDefault();
-//    sessionStorage.setItem("sesionIniciada", "true"); //Lo guardo en el Session
-//    loginSignInForm.style.display = "none";
-//    betMoney.style.display = "flex";
-//});
-
-////////FORM////////
 
 
 ////////EVENTS////////
@@ -260,6 +240,14 @@ function playerStartRound() {
     for (let i = 0; i < 2; i++) {
         hitCard();
     }
+    if (sumPlayerPoints === 21) { //Si saco 21 de primeras, automaticamente hace que el dealer juegue, para ver si estamos empate
+        hit.style.pointerEvents = "none"; //Para que si tengo 21 o si me he pasado, que no se puedan spamear las cartas
+        stand.style.pointerEvents = "none";
+        blacjackFirstHand = true;
+        dealerPlays(); 
+        
+    }
+
 }
 
 /////////ES UNA FUNCION PARA QUE EL JUGADOR AL PRINCIPIO DE CADA RONDA SAQUE 2 CARTAS/////////
@@ -284,9 +272,9 @@ function hitCard() {
     playerCards.push({ name: cardName, value: cardValue });
 
     //Recalculo los puntos del player (ajustando ases automáticamente si es necesario)
-    let sumPlayerPoints = calculatePoints(playerCards);
+    sumPlayerPoints = calculatePoints(playerCards);
 
-    if (sumPlayerPoints >= 21) {
+    if (sumPlayerPoints === 21) {
         hit.style.pointerEvents = "none"; //Para que si tengo 21 o si me he pasado, que no se puedan spamear las cartas
         stand.style.pointerEvents = "none";
         dealerPlays(); //Si me paso, automaticamente hace que el dealer juegue, para ver si gana el o estais empate
@@ -295,6 +283,12 @@ function hitCard() {
     playerPoints.innerHTML = sumPlayerPoints; //Mostrarlo en pantalla
 
     playerPoints.classList.add("get-points-animation"); //Animacion para los puntos
+
+    if (parseInt(playerPoints.innerHTML) > 21) {
+        hit.style.pointerEvents = "none";
+        stand.style.pointerEvents = "none";
+        decidesWinner();
+    }
 
     setTimeout(() => {
         playerPoints.classList.remove("get-points-animation"); //A los 3 ms se quita la animacion, para que si vuelves a tirar se añada
@@ -387,7 +381,12 @@ function winLoseScreen(winner) {
         moneyRound.innerHTML = `Pierdes: -${moneyEarnedFromBet}`;
 
     } else if (winner === 1) {
-        calcMoney = (window.moneyEarned + (moneyEarnedFromBet * 2) / 2);
+        if (blacjackFirstHand === false) {
+            calcMoney = (window.moneyEarned + (moneyEarnedFromBet * 2) / 2);
+        } else {
+            calcMoney = window.moneyEarned + ((moneyEarnedFromBet * 1.5) / 2); // Recuperas apuesta + ganas 1.5x
+        }
+        
 
         currentMoney.innerHTML = `Wallet: ${calcMoney}€`; //El dinero que tenia duplicado por haber ganado
         window.moneyEarned = calcMoney; //Actualizo mi dinero maximo
@@ -471,6 +470,8 @@ function restartRound() {
 
     betMoney.style.display = "flex";
     graphContainer.style.display = "block";
+
+    blacjackFirstHand = false;
     
     selectBet();
 }
