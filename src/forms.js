@@ -63,7 +63,9 @@ document.getElementById('login').addEventListener('submit', async (e) => {
         document.getElementById('login-sign-in-forms').style.display = 'none';
         
         const betMoney = document.getElementById('bet-money');
+        const betWarning = document.getElementById("bet-warning");
         betMoney.style.display = 'flex';
+        betWarning.style.display = 'block';
         
         alert('¡Bienvenido ' + currentUser.username + '!');
     } else {
@@ -110,5 +112,6 @@ window.addEventListener('DOMContentLoaded', async function() {
         
         document.getElementById('login-sign-in-forms').style.display = 'none';
         document.getElementById('bet-money').style.display = 'flex';
+        document.getElementById('bet-warning').style.display = "block";
     }
 });

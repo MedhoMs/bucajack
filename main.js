@@ -56,7 +56,6 @@ let formsBorder = document.getElementById("forms-border");
 let loginText = document.getElementById("login-text");
 let signInText = document.getElementById("sign-in-text");
 
-let loginButton = document.getElementById("login-button");
 
 let changeToSignIn = document.getElementById("change-to-sign-in");
 let changeToLogin = document.getElementById("change-to-login");
@@ -134,9 +133,10 @@ exactBet.addEventListener("keyup", function(e) {
 //Evento cuando le doy al boton de apostar
 betMoneySelected.addEventListener("click", function() {
     betMoney.style.display = "none";
+    betWarning.style.display = "none";
     graphContainer.style.display = "none";
     hit.style.pointerEvents = "all";
-    stand.style.pointerEvents = "all"
+    stand.style.pointerEvents = "all";
 
     //Aqui le quito la clase (fondo oscurecido)
     document.body.classList.remove("darker");
@@ -471,6 +471,7 @@ function restartRound() {
     document.body.classList.add("darker");
 
     betMoney.style.display = "flex";
+    betWarning.style.display = "block";
     graphContainer.style.display = "block";
 
     blacjackFirstHand = false;

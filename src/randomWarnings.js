@@ -2,7 +2,7 @@ export const randomWarningsArray = [
     "Si te quedas en 0€, borrón y cuenta nueva",
     "!APUESTALO TODO¡ (bajo tu propia responsabilidad...)",
     "¿Que somos, leones o huevones?",
-    "Tik tak... Tik tak",
+    "Tik tak... Tik tak...",
     "Mama, con esta mano te saco de la ruina",
     "Apuesta, payico",
     "O black, o jack, pero no te quedes a medias",

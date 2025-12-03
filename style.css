@@ -146,6 +146,7 @@ dialog {
 
 #bet-warning {
     position: absolute;
+    display: none;
     margin-bottom: 550px;
     font-size: 40px;
     font-family: 'Times New Roman', Times, serif;
