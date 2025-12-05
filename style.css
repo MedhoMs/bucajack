@@ -5,6 +5,7 @@ body {
     color: white;
     margin: 0;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -24,7 +25,7 @@ body.darker::before {
 
 main {
     position: relative;
-    min-height: 92vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -197,6 +198,26 @@ dialog {
     margin: 0;
 }
 
+#ranking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    bottom: 200px;
+    z-index: 2;
+    color: #d4af37;
+    text-shadow: -1px 1px 0px #5f4e17;
+}
+
+#ranking-title {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#ranking-list {
+    font-size: 25px;
+}
+
 #graph-container {
     position: absolute;
     text-align: center;
@@ -204,7 +225,6 @@ dialog {
     height: 200px;
     right: 20px;
     bottom: 10px;
-    /* background-color: red; */
     z-index: 2;
 }
 
@@ -343,6 +363,8 @@ dialog {
 /*/////////RESPONSIVE/////////*/
 
 /* RESPONSIVE PARA TABLETS (768px - 1024px) */
+
+/*
 @media (max-width: 1024px) {
     main {
         gap: 150px;
@@ -399,7 +421,7 @@ dialog {
         height: 150px;
     }
 
-    /* Bet Money Section */
+
     #money-slider {
         width: 300px;
     }
@@ -414,6 +436,7 @@ dialog {
 }
 
 /* RESPONSIVE PARA TABLETS PEQUEÑAS (600px - 768px) */
+/*
 @media (max-width: 768px) {
     main {
         gap: 100px;
@@ -470,7 +493,6 @@ dialog {
         padding: 10px 15px;
     }
 
-    /* Graph Container */
     #graph-container {
         position: relative;
         width: 90%;
@@ -491,7 +513,6 @@ dialog {
         height: auto;
     }
 
-    /* Bet Money Section */
     #bet-money {
         flex-direction: column;
         gap: 30px;
@@ -518,7 +539,7 @@ dialog {
         margin-bottom: 20px;
     }
 
-    /* Forms */
+
     #forms-border {
         flex-direction: column;
         gap: 40px;
@@ -575,6 +596,7 @@ dialog {
 }
 
 /* RESPONSIVE PARA MÓVILES (hasta 600px) */
+/*
 @media (max-width: 600px) {
     main {
         gap: 60px;
@@ -635,7 +657,7 @@ dialog {
         border-radius: 10px;
     }
 
-    /* Dialog */
+
     dialog {
         width: 90%;
         max-width: 300px;
@@ -659,7 +681,7 @@ dialog {
         font-size: 18px;
     }
 
-    /* Graph Container */
+
     #graph-container {
         width: 95%;
         max-width: 300px;
@@ -670,7 +692,7 @@ dialog {
         padding: 3px;
     }
 
-    /* Bet Money Section */
+
     #bet-money {
         padding: 15px;
         gap: 20px;
@@ -710,7 +732,7 @@ dialog {
         width: 160px;
     }
 
-    /* Forms */
+
     #login-sign-in-forms {
         min-height: 100vh;
         padding: 20px 10px;
@@ -755,6 +777,7 @@ dialog {
 }
 
 /* RESPONSIVE PARA MÓVILES MUY PEQUEÑOS (hasta 400px) */
+/*
 @media (max-width: 400px) {
     main {
         gap: 40px;
@@ -815,6 +838,7 @@ dialog {
 }
 
 /* ORIENTACIÓN HORIZONTAL EN MÓVILES */
+/*
 @media (max-height: 500px) and (orientation: landscape) {
     main {
         flex-direction: row;
@@ -874,5 +898,4 @@ dialog {
         height: 100px;
     }
 }
-
-/*/////////RESPONSIVE/////////*/
+    */

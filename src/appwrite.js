@@ -121,4 +121,23 @@ export async function getUserData(userId) {
     }
 }
 
+export async function getRanking() {
+    try {
+        //Obtener todos los usuarios ordenados por wallet (descendente)
+        const response = await databases.listDocuments(
+            DATABASE_ID,
+            TABLE_ID,
+            [
+                Query.orderDesc('wallet'),
+                Query.limit(5) //Top 5 usuarios
+            ]
+        );
+        
+        return response.documents;
+    } catch (error) {
+        console.error('Error al obtener ranking:', error);
+        return [];
+    }
+}
+
 export default client;

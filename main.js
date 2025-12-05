@@ -1,5 +1,6 @@
 import { cardsArray } from "./src/cardsObject.js";
 import { randomWarningsArray } from "./src/randomWarnings";
+import { getRanking } from "./src/appwrite.js";
 
 let cardsDict = Object.entries(cardsArray);
 
@@ -20,6 +21,7 @@ function getRandomCard() {
 }
 
 window.addEventListener("load", () => {
+    mostrarRanking();
     selectBet();
     //dealerStartRound();
     //playerStartRound();
@@ -46,6 +48,7 @@ let exactBet = document.getElementById("exact-bet"); //El input para apostar el 
 let betMoneySelected = document.getElementById("bet-money-selected"); //Boton para empezar la apuesta
 let graphContainer = document.getElementById("graph-container"); //Div que contiene el grafico win|lose
 let betWarning = document.getElementById("bet-warning"); //Frases aleatorias en la pantalla de apostar
+let ranking = document.getElementById("ranking"); 
 
 ////////FORM////////
 
@@ -137,6 +140,7 @@ betMoneySelected.addEventListener("click", function() {
     graphContainer.style.display = "none";
     hit.style.pointerEvents = "all";
     stand.style.pointerEvents = "all";
+    ranking.style.display = "none";
 
     //Aqui le quito la clase (fondo oscurecido)
     document.body.classList.remove("darker");
@@ -161,6 +165,24 @@ betWarning.innerHTML = randomWarningsArray[randomWarningsIndex];
 
 
 ////////FUNCTIONS////////
+
+async function mostrarRanking() {
+    const usuarios = await getRanking();
+    const rankingList = document.getElementById('ranking-list');
+    
+    if (usuarios.length === 0) {
+        rankingList.innerHTML = '<p>No hay usuarios en el ranking</p>';
+        return;
+    }
+    
+    rankingList.innerHTML = usuarios.map((usuario, index) => `
+        <div class="ranking-item">
+            <span class="position">${index + 1}.</span>
+            <span class="username">${usuario.username}</span>
+            <span class="wallet">${usuario.wallet}€</span>
+        </div>
+    `).join('');
+}
 
 function selectBet() {
 
@@ -386,7 +408,7 @@ function winLoseScreen(winner) {
         if (blacjackFirstHand === false) {
             calcMoney = (window.moneyEarned + (moneyEarnedFromBet * 2) / 2);
         } else {
-            calcMoney = window.moneyEarned + ((moneyEarnedFromBet * 1.5) / 2); // Recuperas apuesta + ganas 1.5x
+            calcMoney = window.moneyEarned + ((moneyEarnedFromBet * 2 /*1.5*/) / 2); // Recuperas apuesta + ganas 1.5x, esta comentado porq no funciona bien
         }
         
 
@@ -441,6 +463,9 @@ function restartRound() {
 
     cardsDict = Object.entries(cardsArray);
 
+    randomWarningsIndex = Math.floor(Math.random() * randomWarningsArray.length); //Volver a llamar al randomIndex
+    betWarning.innerHTML = randomWarningsArray[randomWarningsIndex];
+
     winLoseDialog.requestClose();
 
     let dealerEraseDeck = document.querySelectorAll("#dealer-deck li");
@@ -473,6 +498,7 @@ function restartRound() {
     betMoney.style.display = "flex";
     betWarning.style.display = "block";
     graphContainer.style.display = "block";
+    ranking.style.display = "flex";
 
     blacjackFirstHand = false;
     
