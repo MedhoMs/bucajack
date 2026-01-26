@@ -6,18 +6,17 @@ const ctx = document.getElementById('graph-container');
 //Funcion de asistencia
 
 (async function(){
-    const testData = arrayMoney;
 
     new Chart(
         document.getElementById('graph_diagram'),
         {
             type:'line',
             data:{
-                labels: testData.map(row => row.mano),
+                labels: arrayMoney.map(row => row.mano),
                 datasets:[
                     {
                         label: 'ye mone',
-                        data: testData.map(row => row.dinero)
+                        data: arrayMoney.map(row => row.dinero)
                     }
                 ]
             }

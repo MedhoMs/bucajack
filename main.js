@@ -205,7 +205,7 @@ function selectBet() {
         }
     });
 }
-
+// ADDS DATA FOR GRAPH
 function addDataGraph(value){
     moneyArray.push({
         mano: moneyArray.length,
