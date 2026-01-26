@@ -49,6 +49,8 @@ let betMoneySelected = document.getElementById("bet-money-selected"); //Boton pa
 let graphContainer = document.getElementById("graph-container"); //Div que contiene el grafico win|lose
 let betWarning = document.getElementById("bet-warning"); //Frases aleatorias en la pantalla de apostar
 let ranking = document.getElementById("ranking"); 
+let moneyArray = [];
+
 
 ////////FORM////////
 
@@ -201,6 +203,13 @@ function selectBet() {
         if (isDragging) {
             isDragging = false;
         }
+    });
+}
+
+function addDataGraph(value){
+    moneyArray.push({
+        mano: moneyArray.length,
+        dinero: value
     });
 }
 
@@ -399,6 +408,7 @@ function winLoseScreen(winner) {
         //ACTUALIZAR EN LA BASE DE DATOS
         if (window.updateWalletInDB) {
             window.updateWalletInDB(window.moneyEarned);
+            addDataGraph(window.moneyEarned); // Agrega el dinero para el grafico
         }
 
         winLoseText.innerHTML = `Has perdido bobolón <br> El dealer te la ha jugado (Esto esta amañado)`;
@@ -420,6 +430,7 @@ function winLoseScreen(winner) {
         //ACTUALIZAR EN LA BASE DE DATOS
         if (window.updateWalletInDB) {
             window.updateWalletInDB(window.moneyEarned);
+            addDataGraph(window.moneyEarned); // Agrega el dinero para el grafico
         }
 
         winLoseText.innerHTML = `¡Has ganado cabronazo <br> El dealer está llorando en una esquina!`;
@@ -440,6 +451,7 @@ function winLoseScreen(winner) {
         //ACTUALIZAR EN LA BASE DE DATOS
         if (window.updateWalletInDB) {
             window.updateWalletInDB(window.moneyEarned);
+            addDataGraph(window.moneyEarned); // Agrega el dinero para el grafico
         }
 
         winLoseText.innerHTML = `¡Empate! <br> Recuperas tu apuesta`;
