@@ -1,4 +1,4 @@
-import "../main.js";
+
 import Chart from 'chart.js/auto';
 
 const ctx = document.getElementById('graph-container');
@@ -7,16 +7,19 @@ const ctx = document.getElementById('graph-container');
 
 (async function(){
 
+    moneyData = [];
+    moneyData = window.moneyArray;
+
     new Chart(
         document.getElementById('graph_diagram'),
         {
             type:'line',
             data:{
-                labels: arrayMoney.map(row => row.mano),
+                labels: moneyData.map(row => row.mano),
                 datasets:[
                     {
                         label: 'ye mone',
-                        data: arrayMoney.map(row => row.dinero)
+                        data: moneyData.map(row => row.dinero)
                     }
                 ]
             }
