@@ -49,7 +49,7 @@ let betMoneySelected = document.getElementById("bet-money-selected"); //Boton pa
 let graphContainer = document.getElementById("graph-container"); //Div que contiene el grafico win|lose
 let betWarning = document.getElementById("bet-warning"); //Frases aleatorias en la pantalla de apostar
 let ranking = document.getElementById("ranking"); 
-window.moneyArray = [];
+export let moneyArray = [];
 
 
 ////////FORM////////
@@ -207,8 +207,8 @@ function selectBet() {
 }
 // ADDS DATA FOR GRAPH
 function addDataGraph(value){
-    window.moneyArray.push({
-        mano: window.moneyArray.length,
+    moneyArray.push({
+        mano: moneyArray.length,
         dinero: value
     });
 }
