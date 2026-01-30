@@ -8,7 +8,7 @@ const ctx = document.getElementById('graph-container');
 
 (async function(){
 
-    new Chart(
+    new Chart( 
         document.getElementById('graph_diagram'),
         {
             type:'line',
